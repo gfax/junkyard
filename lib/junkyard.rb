@@ -1,0 +1,6 @@
+require "junkyard/version"
+require "junkyard/card"
+require "junkyard/deck"
+require "junkyard/player"
+require "junkyard/player_collection"
+require "junkyard/game/base"
