@@ -5,6 +5,10 @@ Feature: Basic Setup
     And there is a player named Kevin
     And there is a player named Jay
 
+    When the game begins
+
     Then Kevin's health is 10
+    And his hand should have 5 cards
     And Jay's health is 10
-    And there are 107 cards in the deck
+    And his hand should have 5 cards
+    And there are 97 cards in the deck

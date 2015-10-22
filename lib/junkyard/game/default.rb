@@ -1,8 +1,8 @@
 module Junkyard
   module Game
     class Default < Base
-      card :gut_punch, count: 10 do
-        attack 2
+      card :gut_punch, count: 10 do |target|
+        attack target, damage: 2
       end
 
       card :neck_punch, count: 10
