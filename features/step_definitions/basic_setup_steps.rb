@@ -9,13 +9,11 @@ Given /^the game begins$/ do
   @game.start
 end
 
-Given /^there is a player named ([a-zA-Z_]+)\s*(with a ([a-z_]+))?$/ do |name, card_setup, card|
-
+Given /^there is a player named ([a-zA-Z_]+)\s*(with a ([a-z_]+)(, and ([a-z_]+))?)?$/ do |name, card1_setup, card1, card2_setup, card2|
   player = @game.players.add name: name
 
-  if card_setup.present?
-    player.hand << @game.deck.pull(card.to_sym)
-  end
+  player.hand << @game.deck.pull(card1.to_sym) if card1_setup.present?
+  player.hand << @game.deck.pull(card2.to_sym) if card2_setup.present?
 end
 
 When /^([a-zA-Z_+]+) uses ([a-z_]+)\s*(against ([a-zA-Z_+]+))?$/ do |name, card, has_target, target|

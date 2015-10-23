@@ -49,6 +49,12 @@ module Junkyard
       execute_action self
     end
 
+    def heal amount
+      @action = { type: :heal, amount: amount }
+      execute_action self
+    end
+
+
     def execute_action prev
       unless action.nil?
         case action[:type]
@@ -65,6 +71,8 @@ module Junkyard
           end
 
           action[:target].health -= damage
+        when :heal
+          player.health = [10, player.health + action[:amount]].min
         end
       end
 

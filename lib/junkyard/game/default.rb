@@ -10,7 +10,10 @@ module Junkyard
       card :grab, count: 8
 
       card :kickball, count: 7
-      card :sub, count: 7
+
+      card :sub, count: 7 do
+        heal 2
+      end
 
       card :dodge, count: 6
 
@@ -18,9 +21,14 @@ module Junkyard
         defend -1
       end
 
-      card :uppercut, count: 5
+      card :uppercut, count: 5 do |target|
+        attack target, damage: 5
+      end
 
-      card :mattress, count: 3
+      card :mattress, count: 3 do
+        defend 2
+      end
+
       card :grease_bucket, count: 3
       card :soup, count: 3
 
