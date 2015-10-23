@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 require_relative '../lib/junkyard'
 require_relative '../lib/junkyard/game/default'
 
