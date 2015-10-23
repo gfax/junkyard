@@ -9,6 +9,10 @@ module Junkyard
         turns.last
       end
 
+      def move
+        turn.move
+      end
+
       def initialize
         @players = PlayerCollection.new
         @deck    = Deck.new
@@ -30,7 +34,7 @@ module Junkyard
       end
 
       def next_turn player
-        @turns << Turn.new(game: self, player: player)
+        @turns << Turn.new(self, player)
       end
 
       class << self

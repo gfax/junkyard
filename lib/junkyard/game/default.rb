@@ -14,7 +14,10 @@ module Junkyard
 
       card :dodge, count: 6
 
-      card :block, count: 5
+      card :block, count: 5 do
+        defend -1
+      end
+
       card :uppercut, count: 5
 
       card :mattress, count: 3

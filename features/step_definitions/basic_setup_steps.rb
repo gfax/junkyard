@@ -18,23 +18,32 @@ Given /^there is a player named ([a-zA-Z_]+)\s*(with a ([a-z_]+))?$/ do |name, c
   end
 end
 
-When /^([a-zA-Z_+]+) uses ([a-z_]+)\s+(against ([a-zA-Z_+]+))$/ do |name, card, has_target, target|
+When /^([a-zA-Z_+]+) uses ([a-z_]+)\s*(against ([a-zA-Z_+]+))?$/ do |name, card, has_target, target|
   @player = @game.players.find_by(name: name)
-  expect(@game.turn.player).to be(@player)
 
   if has_target.present?
     @target = @game.players.find_by(name: target)
     expect(@target).to_not be(nil)
   end
 
-  @game.turn.play cards: card.to_sym, target: @target
+  @game.move.play cards: card.to_sym, target: @target
 end
 
 When(/^([a-zA-Z_+]+) passes$/) do |name|
   @player = @game.players.find_by(name: name)
-  expect(@game.turn.player).to be(@player)
+  expect(@game.move.player).to be(@player)
 
-  @game.turn.pass
+  @game.move.pass
+end
+
+Then(/^it is ([a-zA-Z_+]+)'s turn$/) do |name|
+  @player = @game.players.find_by(name: name)
+  expect(@game.turn.player).to be(@player)
+end
+
+Then(/^it is ([a-zA-Z_+]+)'s move$/) do |name|
+  @player = @game.players.find_by(name: name)
+  expect(@game.move.player).to be(@player)
 end
 
 Then /^([a-zA-Z_+]+)'s health is (\d+)$/ do |name, health|
