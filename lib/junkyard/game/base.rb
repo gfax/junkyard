@@ -2,7 +2,7 @@ module Junkyard
   module Game
     class Base
       attr_reader :players
-      attr_reader :deck
+      attr_reader :deck, :discard
       attr_reader :turns
 
       def turn
@@ -16,6 +16,7 @@ module Junkyard
       def initialize
         @players = PlayerCollection.new
         @deck    = Deck.new
+        @discard = []
         @turns   = []
 
         @@cards.each do |card|
@@ -35,6 +36,7 @@ module Junkyard
 
       def next_turn player
         @turns << Turn.new(self, player)
+        @turns.last.begin
       end
 
       class << self

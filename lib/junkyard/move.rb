@@ -31,17 +31,25 @@ module Junkyard
         card = cards.shift
         card = player.hand.pull card
 
+        game.discard << card
+
         target = options[:target]
 
-        instance_exec target, &card.block
+        instance_exec target, card, &card.block
       else
         throw Junkyard::Exception.new
       end
     end
 
-    def attack target, options
+    def attack target, options, &block
       @action = { type: :attack, damage: options[:damage], target: target }
-      next_move target
+      @action[:observer] = Observer.new(&block) unless block.nil?
+
+      if options[:unstoppable]
+        execute_action self
+      else
+        next_move target
+      end
     end
 
     def defend amount
@@ -54,6 +62,13 @@ module Junkyard
       execute_action self
     end
 
+    def pass
+      execute_action self
+    end
+
+    def skip
+      execute_action self
+    end
 
     def execute_action prev
       unless action.nil?
@@ -71,6 +86,8 @@ module Junkyard
           end
 
           action[:target].health -= damage
+
+          action[:observer].execute :after, self unless action[:observer].nil?
         when :heal
           player.health = [10, player.health + action[:amount]].min
         end
@@ -83,14 +100,15 @@ module Junkyard
       end
     end
 
-    def pass
-      execute_action self
+    def begin
+
     end
 
     private
 
     def next_move player
       turn.moves << Move.new(self, player)
+      turn.moves.last.begin
     end
 
   end

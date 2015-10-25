@@ -5,6 +5,8 @@ module Junkyard
     def initialize game, player
       @moves = [Move.new(self, player)]
       @game  = game
+
+      @moves.last.begin
     end
 
     def player
@@ -13,6 +15,12 @@ module Junkyard
 
     def move
       @moves.last
+    end
+
+    def begin
+      player.observers.each do |observer|
+        observer.execute :before_turn, self
+      end
     end
 
     def next_move player

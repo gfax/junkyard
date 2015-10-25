@@ -53,6 +53,10 @@ Then /^(his|her) hand should have (\d+) cards$/  do |pronoun, count|
   expect(@player.hand.count).to eq(count.to_i)
 end
 
-Then /^there are (\d+) cards in the deck$/ do |count|
+Then /^there (are|is) (\d+) cards? in the deck$/ do |_, count|
   expect(@game.deck.count).to eq(count.to_i)
+end
+
+Then(/^there (are|is) (\d+) cards? in the discard$/) do |_, count|
+  expect(@game.discard.count).to eq(count.to_i)
 end

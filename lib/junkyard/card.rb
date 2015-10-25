@@ -20,5 +20,13 @@ module Junkyard
         nil
       end
     end
+
+    def attach_to target, &block
+      target.observers << Observer.new(&block)
+    end
+
+    def detach_from target
+      target.observers.delete self
+    end
   end
 end

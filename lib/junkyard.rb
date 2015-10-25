@@ -1,5 +1,6 @@
 require "junkyard/version"
 require "junkyard/exception"
+require "junkyard/observer"
 require "junkyard/card"
 require "junkyard/deck"
 require "junkyard/hand"
