@@ -30,8 +30,8 @@ module Junkyard
         next_turn players.first
       end
 
-      def deal player
-        (5 - player.hand.count).times { player.hand << deck.pop }
+      def deal player, limit = 5
+        (limit - player.hand.count).times { player.hand << deck.pop }
       end
 
       def next_turn player

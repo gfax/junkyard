@@ -92,10 +92,15 @@ module Junkyard
       card :reverse, count: 1
       card :shifty_business, count: 1
       card :the_bees, count: 1
+
       card :tire_iron, count: 1 do |target|
         attack target, damage: 3, unstoppable: true
       end
-      card :toolbox, count: 1
+
+      card :toolbox, count: 1 do
+        game.deal player, 8
+      end
+
       card :whirlwind, count: 1
       card :windy, count: 1
     end
