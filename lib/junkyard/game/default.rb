@@ -90,7 +90,15 @@ module Junkyard
       card :sleep, count: 1
       card :spare_bolts, count: 1
       card :reverse, count: 1
-      card :shifty_business, count: 1
+
+      card :shifty_business, count: 1 do
+        other = game.players.random except: player
+
+        player_hand = player.hand
+        player.hand = other.hand
+        other.hand = player_hand
+      end
+
       card :the_bees, count: 1
 
       card :tire_iron, count: 1 do |target|

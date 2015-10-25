@@ -60,3 +60,8 @@ end
 Then(/^there (are|is) (\d+) cards? in the discard$/) do |_, count|
   expect(@game.discard.count).to eq(count.to_i)
 end
+
+Then(/^([a-zA-Z_+]+)'s has a ([a-z_]+)$/) do |name, card|
+  @player = @game.players.find_by(name: name)
+  expect(@player.hand.has?(card)).to be(true)
+end

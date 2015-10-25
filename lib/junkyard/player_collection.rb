@@ -16,5 +16,9 @@ module Junkyard
       index = find_index(player) + 1
       index > count - 1 ? first : at(index)
     end
+
+    def random options = {}
+      select { |player| player != options[:except] }.sample
+    end
   end
 end
