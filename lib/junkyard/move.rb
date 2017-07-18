@@ -1,8 +1,9 @@
 module Junkyard
+  # TODO
   class Move
     attr_reader :player, :parent, :action
 
-    def initialize parent, player
+    def initialize(parent, player)
       @parent = parent
       @player = player
     end
@@ -23,7 +24,7 @@ module Junkyard
       turn.game
     end
 
-    def play options
+    def play(options)
       cards = options[:cards]
       cards = [cards] if cards.class == Symbol
 
@@ -41,7 +42,7 @@ module Junkyard
       end
     end
 
-    def attack target, options, &block
+    def attack(target, options, &block)
       @action = { type: :attack, damage: options[:damage], target: target }
       @action[:observer] = Observer.new(&block) unless block.nil?
 
@@ -52,12 +53,12 @@ module Junkyard
       end
     end
 
-    def defend amount
+    def defend(amount)
       @action = { type: :block, amount: amount }
       execute_action self
     end
 
-    def heal amount
+    def heal(amount)
       @action = { type: :heal, amount: amount }
       execute_action self
     end
@@ -70,7 +71,7 @@ module Junkyard
       execute_action self
     end
 
-    def execute_action prev
+    def execute_action(prev)
       unless action.nil?
         case action[:type]
         when :attack
@@ -100,16 +101,13 @@ module Junkyard
       end
     end
 
-    def begin
-
-    end
+    def begin; end
 
     private
 
-    def next_move player
+    def next_move(player)
       turn.moves << Move.new(self, player)
       turn.moves.last.begin
     end
-
   end
 end

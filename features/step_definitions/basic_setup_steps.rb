@@ -1,22 +1,22 @@
 require 'active_support'
 require 'active_support/core_ext'
 
-Given /^a game of junkyard$/ do
+Given(/^a game of junkyard$/) do
   @game = Junkyard::Game::Default.new
 end
 
-Given /^the game begins$/ do
+Given(/^the game begins$/) do
   @game.start
 end
 
-Given /^there is a player named ([a-zA-Z_]+)\s*(with a ([a-z_]+)(, and ([a-z_]+))?)?$/ do |name, card1_setup, card1, card2_setup, card2|
+Given(/^there is a player named ([a-zA-Z_]+)\s*(with a ([a-z_]+)(, and ([a-z_]+))?)?$/) do |name, card1_setup, card1, card2_setup, card2|
   player = @game.players.add name: name
 
   player.hand << @game.deck.pull(card1.to_sym) if card1_setup.present?
   player.hand << @game.deck.pull(card2.to_sym) if card2_setup.present?
 end
 
-When /^([a-zA-Z_+]+) uses ([a-z_]+)\s*(against ([a-zA-Z_+]+))?$/ do |name, card, has_target, target|
+When(/^([a-zA-Z_+]+) uses ([a-z_]+)\s*(against ([a-zA-Z_+]+))?$/) do |name, card, has_target, target|
   @player = @game.players.find_by(name: name)
 
   if has_target.present?
@@ -44,16 +44,16 @@ Then(/^it is ([a-zA-Z_+]+)'s move$/) do |name|
   expect(@game.move.player).to be(@player)
 end
 
-Then /^([a-zA-Z_+]+)'s health is (\d+)$/ do |name, health|
+Then(/^([a-zA-Z_+]+)'s health is (\d+)$/) do |name, health|
   @player = @game.players.find_by(name: name)
   expect(@player.health).to eq(health.to_i)
 end
 
-Then /^(his|her) hand should have (\d+) cards$/  do |pronoun, count|
+Then(/^(his|her) hand should have (\d+) cards$/) do |_pronoun, count|
   expect(@player.hand.count).to eq(count.to_i)
 end
 
-Then /^there (are|is) (\d+) cards? in the deck$/ do |_, count|
+Then(/^there (are|is) (\d+) cards? in the deck$/) do |_, count|
   expect(@game.deck.count).to eq(count.to_i)
 end
 

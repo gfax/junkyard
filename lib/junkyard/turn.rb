@@ -1,8 +1,9 @@
 module Junkyard
+  # TODO
   class Turn
     attr_reader :game, :moves
 
-    def initialize game, player
+    def initialize(game, player)
       @moves = [Move.new(self, player)]
       @game  = game
 
@@ -23,7 +24,7 @@ module Junkyard
       end
     end
 
-    def next_move player
+    def next_move(player)
       @moves << Move.new(self, player)
     end
   end

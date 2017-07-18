@@ -1,0 +1,18 @@
+CyclomaticComplexity:
+  Max: 16
+Layout/IndentationConsistency:
+  Enabled: false
+Layout/IndentationWidth:
+  Enabled: false
+LineLength:
+  Max: 140
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockNesting:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 30
+Metrics/PerceivedComplexity:
+  Enabled: false
+Style/ClassVars:
+  Enabled: false

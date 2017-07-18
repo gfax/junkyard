@@ -1,5 +1,6 @@
 module Junkyard
   module Game
+    # TODO
     class Default < Base
       card :gut_punch, count: 10 do |target|
         attack target, damage: 2
@@ -22,7 +23,7 @@ module Junkyard
       card :dodge, count: 6
 
       card :block, count: 5 do
-        defend -1
+        defend(-1)
       end
 
       card :uppercut, count: 5 do |target|
